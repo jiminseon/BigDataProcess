@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #!/usr/bin/python3
 
 import openpyxl
@@ -55,6 +54,3 @@ for row in ws:
 
 wb.save("student.xlsx")
 	
-=======
-print("hello")
->>>>>>> db8f9f0e77cec29614c0903254b3a9253c496795

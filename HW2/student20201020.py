@@ -19,6 +19,11 @@ C2 = list(0 for i in range(c))
 row_id = 1
 for row in ws:
 	if row_id != 1:
+		sum_v = ws.cell(row = row_id, column = 3).value * 0.3
+		sum_v += ws.cell(row = row_id, column = 4).value * 0.35
+		sum_v += ws.cell(row = row_id, column = 5).value * 0.34
+		sum_v += ws.cell(row = row_id, column = 6).value
+		ws.cell(row = row_id, column = 7).value = sum_v
 		total = ws.cell(row = row_id, column = 7).value
 		if total > A1[0]:
 			A1[0] = total

@@ -5,17 +5,7 @@ import openpyxl
 wb = openpyxl.load_workbook("student.xlsx")
 ws = wb['Sheet1']
 
-num = ws.max_row - 1
-a = int(num * 0.3 // 2)
-b = int((num * 0.7 - a) // 2)
-c = (num - (a + b) * 2) // 2 
-A1 = list(0 for i in range(a))
-A2 = list(0 for i in range(a))
-B1 = list(0 for i in range(b))
-B2 = list(0 for i in range(b))
-C1 = list(0 for i in range(c))
-C2 = list(0 for i in range(c))
-
+grade = dict()
 row_id = 1
 for row in ws:
 	if row_id != 1:
@@ -25,44 +15,58 @@ for row in ws:
 		sum_v += ws.cell(row = row_id, column = 6).value
 		ws.cell(row = row_id, column = 7).value = sum_v
 		total = ws.cell(row = row_id, column = 7).value
-		print(total)
-		if total > A1[0]:
-			A1[0] = total
-			A1.sort()
-			ws.cell(row = row_id, column = 8).value = 'A+'
+		grade[row_id] = total
+	row_id += 1
+
+grade2 = sorted(grade.items(), key = lambda x : x[1], reverse = True)
+dic = dict(grade2)
+lst = list(dic.keys())
+print(lst)
+
+row_id = i = 1
+num = ws.max_row - 1
+a = int(num * 0.3 // 2)
+b = int((num * 0.7 - a) // 2)
+c = (num - (a + b) * 2) // 2 
+a1 = a2 = b1 = b2 = c1 = c2 = 0 
+for row in ws:
+	if row_id != 1:
+		if a1 < a:
+			ws.cell(row = int(lst[i]), column = 8).value = 'A+'
+			a1 += 1
+			i += 1
 			row_id += 1
 			continue
-		elif total > A2[0]:
-			A2[0] = total
-			A2.sort()
-			ws.cell(row = row_id, column = 8).value = 'A0'
+		elif a2 < a:
+			ws.cell(row = int(lst[i]), column = 8).value = 'A0'
+			a2 += 1
+			i += 1
 			row_id += 1
 			continue
-		elif total > B1[0]:
-			B1[0] = total
-			B1.sort()
-			ws.cell(row = row_id, column = 8).value = 'B+'
+		elif b1 < b:
+			ws.cell(row = int(lst[i]), column = 8).value = 'B+'
+			b1 += 1
+			i += 1
 			row_id += 1
-			continue		
-		elif total > B2[0]:
-			B2[0] = total
-			B2.sort()
-			ws.cell(row = row_id, column = 8).value = 'B0'
+			continue
+		elif b2 < a:
+			ws.cell(row = int(lst[i]), column = 8).value = 'B0'
+			b2 += 1
+			i += 1
 			row_id += 1
-			continue	
-		elif total > C1[0]:
-			C1[0] = total
-			C1.sort()
-			ws.cell(row = row_id, column = 8).value = 'C+'
+			continue
+		elif c1 < a:
+			ws.cell(row = int(lst[i]), column = 8).value = 'C+'
+			c1 += 1
+			i += 1
 			row_id += 1
-			continue	
-		elif total > C2[0]:
-			C2[0] = total
-			C2.sort()
-			ws.cell(row = row_id, column = 8).value = 'C0'
+			continue
+		elif c2 < a:
+			ws.cell(row = int(lst[i]), column = 8).value = 'C0'
+			c2 += 1
+			i += 1
 			row_id += 1
 			continue
 	row_id += 1
-
 wb.save("student.xlsx")
 	

@@ -23,7 +23,7 @@ dic = dict(grade2)
 lst = list(dic.keys())
 print(lst)
 
-row_id = i = 1
+row_id = i = 0
 num = ws.max_row - 1
 a = int(num * 0.3 // 2)
 b = int((num * 0.7 - a) // 2)

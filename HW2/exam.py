@@ -23,45 +23,67 @@ dic = dict(grade2)
 lst = list(dic.keys())
 print(lst)
 
-row_id = i = 1
+row_id = i = 0
 num = ws.max_row - 1
 a = int(num * 0.3 // 2)
 b = int((num * 0.7 - a) // 2)
 c = (num - (a + b) * 2) // 2 
-a1 = a2 = b1 = b2 = c1 = c2 = 0 
+a1 = b1 = c1 = 0 
+a2 = b2 = c2 = -1
+same = 0
+
 for row in ws:
 	if row_id != 1:
 		if a1 < a:
-			ws.cell(row = int(lst[i]), column = 8).value = 'A+'
+			if lst[i] == lst[i+1]:
+				same += 1
+			else:
+				for (i - same) in same:
+					ws.cell(row = int(lst[i]), column = 8).value = 'A+'
+				ws.cell(row = int(lst[i]), column = 8).value = 'A+'
+				same = 0
 			a1 += 1
 			i += 1
 			row_id += 1
 			continue
 		elif a2 < a:
-			ws.cell(row = int(lst[i]), column = 8).value = 'A0'
+			if lst[i] == lst[i+1]:
+				same += 1
+			else:
+				for (i - same) in same:
+					ws.cell(row = int(lst[i]), column = 8).value = 'A0'
+				ws.cell(row = int(lst[i]), column = 8).value = 'A0'
+				same = 0
 			a2 += 1
 			i += 1
 			row_id += 1
 			continue
 		elif b1 < b:
+			if lst[i] == lst[i+1]:
+				same += 1
+			else:
+				for (i - same) in same:
+					ws.cell(row = int(lst[i]), column = 8).value = 'B+'
+				ws.cell(row = int(lst[i]), column = 8).value = 'B+'
+				same = 0
 			ws.cell(row = int(lst[i]), column = 8).value = 'B+'
 			b1 += 1
 			i += 1
 			row_id += 1
 			continue
-		elif b2 < a:
+		elif b2 < b:
 			ws.cell(row = int(lst[i]), column = 8).value = 'B0'
 			b2 += 1
 			i += 1
 			row_id += 1
 			continue
-		elif c1 < a:
+		elif c1 < c:
 			ws.cell(row = int(lst[i]), column = 8).value = 'C+'
 			c1 += 1
 			i += 1
 			row_id += 1
 			continue
-		elif c2 < a:
+		elif c2 < c:
 			ws.cell(row = int(lst[i]), column = 8).value = 'C0'
 			c2 += 1
 			i += 1

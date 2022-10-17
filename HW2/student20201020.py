@@ -21,15 +21,27 @@ for row in ws:
 grade2 = sorted(grade.items(), key = lambda x : x[1], reverse = True)
 dic = dict(grade2)
 lst = list(dic.keys())
-print(lst)
 
 row_id = i = 0
 num = ws.max_row - 1
-a = int(num * 0.3 // 2)
-b = int((num * 0.7 - a) // 2)
-c = (num - (a + b) * 2) // 2 
-a1 = b1 = c1 = 0 
-a2 = b2 = c2 = -1 
+a = int(num * 0.3) 
+b = int(num * 0.4) 
+c = num - (a + b)
+
+a1 = a2 = b1 = b2 = c1 = c2 = 0
+if (a % 2 != 0):
+	a1 = 0
+	a2 = -1
+if (b % 2 != 0):
+	b1 = 0
+	b2 = -1
+if (c % 2 != 0):
+	c1 = 0
+	c2 = -1
+a = a // 2
+b = b // 2
+c = c // 2
+print(a, b, c)
 for row in ws:
 	if row_id != 1:
 		if a1 < a:
@@ -50,19 +62,19 @@ for row in ws:
 			i += 1
 			row_id += 1
 			continue
-		elif b2 < a:
+		elif b2 < b:
 			ws.cell(row = int(lst[i]), column = 8).value = 'B0'
 			b2 += 1
 			i += 1
 			row_id += 1
 			continue
-		elif c1 < a:
+		elif c1 < c:
 			ws.cell(row = int(lst[i]), column = 8).value = 'C+'
 			c1 += 1
 			i += 1
 			row_id += 1
 			continue
-		elif c2 < a:
+		elif c2 < c:
 			ws.cell(row = int(lst[i]), column = 8).value = 'C0'
 			c2 += 1
 			i += 1

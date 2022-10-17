@@ -28,8 +28,8 @@ num = ws.max_row - 1
 a = int(num * 0.3 // 2)
 b = int((num * 0.7 - a) // 2)
 c = (num - (a + b) * 2) // 2 
-a1 = b1 = c1 = -1
-a2 = b2 = c2 = 0 
+a1 = b1 = c1 = 0 
+a2 = b2 = c2 = -1 
 for row in ws:
 	if row_id != 1:
 		if a1 < a:

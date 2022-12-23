@@ -70,7 +70,7 @@ for i in range(len(trainingFolder)):
 	print(real)
 	for i in range(1, 21):
 		predict = classify0(inputData, group, labels, i)
-		if (real != predict):
+		if (real != int(predict)):
 			error[i] = error.get(i, 0) + 1
-
-
+for i in range(1, 21):
+	print(int(error[i])/len(trainingFolder)*100)

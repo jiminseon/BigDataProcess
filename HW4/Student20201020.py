@@ -2,6 +2,7 @@ import numpy as np
 import operator
 import os
 import sys
+import math
 
 fileList = os.listdir(sys.argv[2])
 
@@ -69,4 +70,5 @@ for i in range(len(trainingFolder)):
 		if (real != int(predict)):
 			error[i] = error.get(i, 0) + 1
 for i in range(1, 21):
-	print(int(error[i])/len(trainingFolder)*100)
+	print(math.trunc(int(error[i])/len(trainingFolder)*100))
+	

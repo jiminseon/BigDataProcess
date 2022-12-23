@@ -10,7 +10,7 @@ trainingFolder = os.listdir(sys.argv[1])
 
 def trainingToMatrix(filename):
 	f = open(filename)
-	numberOfLines = len(f.readlines())-1 
+	numberOfLines = len(f.readlines()) 
 	mat = np.zeros((1, numberOfLines*32))
 	f = open(filename)
 	index = 0
@@ -26,7 +26,7 @@ def trainingToMatrix(filename):
 
 def fileToMatrix(foldername):
 	f = open(foldername+"/"+fileList[0])
-	numberOfLines = len(f.readlines())-1 
+	numberOfLines = len(f.readlines())
 	num = len(fileList)
 	mat = np.zeros((num, numberOfLines*32))
 	classLabel = []
@@ -40,7 +40,8 @@ def fileToMatrix(foldername):
 				if (j != '\n'):
 					trainingList.append(float(j))
 		mat[index, :] = trainingList
-		classLabel = fileList[i]
+		fileNum = fileList[i].split("_")
+		classLabel.append(int(fileNum[0]))
 		index += 1
 	return mat, classLabel
 

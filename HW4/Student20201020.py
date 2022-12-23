@@ -6,33 +6,33 @@ import math
 
 fileList = os.listdir(sys.argv[2])
 
-trainingFolder = os.listdir(sys.argv[1])
+trainingFile = os.listdir(sys.argv[1])
 
-def trainingToMatrix(filename):
+def testToMatrix(filename):
 	f = open(filename)
 	numberOfLines = len(f.readlines()) 
 	mat = np.zeros((1, numberOfLines*32))
 	f = open(filename)
 	index = 0
-	trainingList = []
+	testList = []
 	for line in f.readlines():
 		a = list(line)
 		for i in a:
 			if (i != '\n'):
-				trainingList.append(float(i))
-	mat[index, :] = trainingList
+				testList.append(float(i))
+	mat[index, :] = testList
 	return mat
 
 
 def fileToMatrix(foldername):
-	f = open(foldername+"/"+fileList[0])
+	f = open(foldername+"/"+trainingFile[0])
 	numberOfLines = len(f.readlines())
-	num = len(fileList)
+	num = len(trainingFile)
 	mat = np.zeros((num, numberOfLines*32))
 	classLabel = []
 	index = 0
 	for i in range(0, num):
-		f = open(foldername+"/"+fileList[i])
+		f = open(foldername+"/"+trainingFile[i])
 		trainingList = []
 		for line in f.readlines():
 			a = list(line)
@@ -40,7 +40,7 @@ def fileToMatrix(foldername):
 				if (j != '\n'):
 					trainingList.append(float(j))
 		mat[index, :] = trainingList
-		fileNum = fileList[i].split("_")
+		fileNum = trainingFile[i].split("_")
 		classLabel.append(int(fileNum[0]))
 		index += 1
 	return mat, classLabel
@@ -59,17 +59,19 @@ def classify0(inX, dataSet, labels, k):
 		sortedClassCount = sorted(classCount.items(), key = operator.itemgetter(1), reverse = True)
 	return sortedClassCount[0][0]
 
-group, labels = fileToMatrix(sys.argv[2])
+group, labels = fileToMatrix(sys.argv[1])
 error = {}
 
-for i in range(len(trainingFolder)):
-	inputData = trainingToMatrix(sys.argv[1]+"/"+trainingFolder[i])
-	real = trainingFolder[i].split("_")
+for i in range(len(fileList)):
+	inputData = testToMatrix(sys.argv[2]+"/"+fileList[i])
+	real = fileList[i].split("_")
 	real = int(real[0])
 	for i in range(1, 21):
 		predict = classify0(inputData, group, labels, i)
 		if (real != int(predict)):
 			error[i] = error.get(i, 0) + 1
+		else:
+			error[i] = error.get(i, 0) + 0
 for i in range(1, 21):
-	print(math.trunc(int(error[i])/len(trainingFolder)*100))
+	print(math.trunc(int(error[i])/len(fileList)*100))
 	

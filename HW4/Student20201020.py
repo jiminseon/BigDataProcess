@@ -4,7 +4,6 @@ import os
 import sys
 
 fileList = os.listdir(sys.argv[2])
-print(fileList)
 
 trainingFolder = os.listdir(sys.argv[1])
 
@@ -26,7 +25,6 @@ def trainingToMatrix(filename):
 
 def fileToMatrix(foldername):
 	f = open(foldername+"/"+fileList[0])
-	print(fileList[0])
 	numberOfLines = len(f.readlines())-1 
 	num = len(fileList)
 	mat = np.zeros((num, numberOfLines*32))
@@ -41,7 +39,6 @@ def fileToMatrix(foldername):
 				if (j != '\n'):
 					trainingList.append(float(j))
 		mat[index, :] = trainingList
-		print(fileList[i])
 		classLabel = fileList[i]
 		index += 1
 	return mat, classLabel
@@ -67,7 +64,6 @@ for i in range(len(trainingFolder)):
 	inputData = trainingToMatrix(sys.argv[1]+"/"+trainingFolder[i])
 	real = trainingFolder[i].split("_")
 	real = int(real[0])
-	print(real)
 	for i in range(1, 21):
 		predict = classify0(inputData, group, labels, i)
 		if (real != int(predict)):
